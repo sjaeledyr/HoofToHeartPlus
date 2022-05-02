@@ -1,0 +1,4 @@
+name: HoofToHeartPlus
+version: '${project.version}'
+main: me.sjaeledyr.hooftoheartplus.Main
+api-version: 1.18
