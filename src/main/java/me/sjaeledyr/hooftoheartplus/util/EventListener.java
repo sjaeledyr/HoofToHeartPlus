@@ -9,12 +9,15 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class EventListener implements Listener {
 
     PlayerDataManager dh = new PlayerDataManager();
-    
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         // Init Variables
         Player p = e.getPlayer();
         String ip = p.getAddress().getAddress().getHostAddress();
+
+        // Document Player IP address
+        dh.listIp(p, ip);
 
         // Check if this is the player's first time joining the server.
         if(dh.newPlayerCheck(p)) {
