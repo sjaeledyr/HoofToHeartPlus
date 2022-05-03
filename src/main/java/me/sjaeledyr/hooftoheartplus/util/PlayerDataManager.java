@@ -18,4 +18,8 @@ public class PlayerDataManager {
     public boolean newPlayerCheck(Player p) {
         return cfg.getBoolean(p.getName() + "." + "isFirstJoin");
     }
+
+    public void listIp(Player p, String ip) {
+        cfg.set(p.getName() + "." + "lastIpAddress", ip);
+    }
 }
