@@ -9,12 +9,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class EventListener implements Listener {
 
     PlayerDataManager dh = new PlayerDataManager();
+    
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         // Init Variables
         Player p = e.getPlayer();
         String ip = p.getAddress().getAddress().getHostAddress();
 
+        // Check if this is the player's first time joining the server.
         if(dh.newPlayerCheck(p)) {
             p.sendMessage("You've joined the server for the first time!");
             p.sendMessage("Welcome to Hoof to Heart " + p.getDisplayName());
