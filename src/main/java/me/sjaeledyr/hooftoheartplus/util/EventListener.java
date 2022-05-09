@@ -1,5 +1,6 @@
 package me.sjaeledyr.hooftoheartplus.util;
 
+import me.sjaeledyr.hooftoheartplus.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -7,8 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 public class EventListener implements Listener {
-
-    PlayerDataManager dh = new PlayerDataManager();
+    private Main plugin;
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
@@ -16,19 +16,11 @@ public class EventListener implements Listener {
         Player p = e.getPlayer();
         String ip = p.getAddress().getAddress().getHostAddress();
 
-        // Document Player IP address
-        dh.listIp(p, ip);
-
-        // Check if this is the player's first time joining the server.
-        if(dh.newPlayerCheck(p)) {
-            p.sendMessage("You've joined the server for the first time!");
-            p.sendMessage("Welcome to Hoof to Heart " + p.getDisplayName());
-            dh.addPlayerCheck(p, false);
-        } else {
-            p.sendMessage("Welcome to Hoof to Heart " + p.getDisplayName());
-        }
+        plugin.playerData.getConfig().set("players." + p.getUniqueId().toString() + ".ip", ip);
+        plugin.playerData.getConfig().set("players." + p.getUniqueId().toString() + ".player_name", p.getDisplayName());
+        plugin.playerData.saveConfig();
 
         // Personal Player join message
-        p.sendMessage(ChatColor.RED+ "You have joined with the following ip: " + ip);
+        p.sendMessage(ChatColor.RED + "You have joined with the following ip: " + ip);
     }
 }
